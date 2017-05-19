@@ -38,13 +38,14 @@ func find2(files []File, dir string, pm *fileutils.PatternMatcher) []File {
 	}
 	for _, info := range infos {
 		path := dir + info.Name()
-		if rm, _ := pm.Matches(path); !rm {
+		exclude, _ := pm.Matches(path)
+		if !exclude {
 			files = append(files, File {
 				path: path,
 				modTime: info.ModTime(),
 			})
 		}
-		if info.IsDir() {
+		if info.IsDir() && (!exclude || pm.Exclusions()) {
 			files = find2(files, path + "/", pm)
 		}
 	}
