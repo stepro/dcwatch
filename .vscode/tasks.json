@@ -2,11 +2,16 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "taskName": "install",
-            "isBuildCommand": true,
+            "taskName": "build-darwin",
+            "options": {
+                "env": {
+                    "GOOS": "darwin",
+                    "GOARCH": "amd64"
+                }
+            },
             "command": "go",
             "suppressTaskName": true,
-            "args": [ "install", "-v" ]
+            "args": [ "build", "-v", "-o", "bin/darwin/amd64/dcwatch" ]
         },
         {
             "taskName": "build-linux",
@@ -18,7 +23,26 @@
             },
             "command": "go",
             "suppressTaskName": true,
-            "args": [ "build", "-v" ]
+            "args": [ "build", "-v", "-o", "bin/linux/amd64/dcwatch" ]
+        },
+        {
+            "taskName": "build-windows",
+            "options": {
+                "env": {
+                    "GOOS": "windows",
+                    "GOARCH": "amd64"
+                }
+            },
+            "command": "go",
+            "suppressTaskName": true,
+            "args": [ "build", "-v", "-o", "bin/windows/amd64/dcwatch.exe" ]
+        },
+        {
+            "taskName": "install",
+            "isBuildCommand": true,
+            "command": "go",
+            "suppressTaskName": true,
+            "args": [ "install", "-v" ]
         }
     ]
 }
