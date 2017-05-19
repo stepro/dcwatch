@@ -6,7 +6,19 @@
             "isBuildCommand": true,
             "command": "go",
             "suppressTaskName": true,
-            "args": [ "install" ]
+            "args": [ "install", "-v" ]
+        },
+        {
+            "taskName": "build-linux",
+            "options": {
+                "env": {
+                    "GOOS": "linux",
+                    "GOARCH": "amd64"
+                }
+            },
+            "command": "go",
+            "suppressTaskName": true,
+            "args": [ "build", "-v" ]
         }
     ]
 }

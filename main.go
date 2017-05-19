@@ -13,12 +13,13 @@ import (
 
 // File represents a file in a docker context
 type File struct {
-	path string
+	path    string
 	modTime time.Time
 }
 
 // Files represents the files in a docker context
 type Files []File
+
 func (a Files) Len() int           { return len(a) }
 func (a Files) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a Files) Less(i, j int) bool { return a[i].path < a[j].path }
@@ -40,13 +41,13 @@ func find2(files []File, dir string, pm *fileutils.PatternMatcher) []File {
 		path := dir + info.Name()
 		exclude, _ := pm.Matches(path)
 		if !exclude {
-			files = append(files, File {
-				path: path,
+			files = append(files, File{
+				path:    path,
 				modTime: info.ModTime(),
 			})
 		}
 		if info.IsDir() && (!exclude || pm.Exclusions()) {
-			files = find2(files, path + "/", pm)
+			files = find2(files, path+"/", pm)
 		}
 	}
 	return files
